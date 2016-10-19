@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<title>Ajax Example</title>
+		<script language="javascript" type="text/javascript">
+			var XMLHttpRequestObject = false;
+			var obj;
+			
+			if(window.XMLHttpRequest){
+				XMLHttpRequestObject=new XMLHttpRequest();
+			}
+			else if(window.ActiveXObject){
+				XMLHttpRequestObject=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			
+			function getData(datasource, divId){
+				if(XMLHttpRequestObject){
+					obj=document.getElementById(divId);
+					XMLHttpRequestObject.open("GET",datasource);
+					XMLHttpRequestObject.onreadystatechange=handler;
+					XMLHttpRequestObject.send(null);
+				}
+			}
+			function handler(){
+				if(XMLHttpRequestObject.readyState==4||XMLHttpRequestObject.status==200){
+					obj.innerHTML=XMLHttpRequestObject.responseText;
+				}
+			}
+		</script>	
+	</head>
+	<body>
+		<h1>Get Data with Ajax</h1>
+		<form>
+			<input type = "button" value = "Display Message" onclick="getData('testdata.txt','targetDiv')"/>
+		</form>
+		<div id = "targetDiv">
+			<p>Here's the data</p>
+		</div>
+		
+	</body>
+</html>
